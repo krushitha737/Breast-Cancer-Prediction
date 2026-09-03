@@ -50,7 +50,6 @@ Jupyter Notebook
 
 ## 🔄 Machine Learning Workflow
 
-```text
 Dataset
    ↓
 Data Exploration
@@ -92,7 +91,8 @@ Precision: 98.61%
 Recall: 98.61%
 F1 Score: 98.61%
 ROC-AUC: 99.54%
-📈 Dashboard Features
+
+## 📈 Dashboard Features
 
 ### The Streamlit dashboard provides:
 
@@ -107,6 +107,28 @@ ROC curve
 Interactive prediction
 Benign and malignant demo samples
 Prediction probabilities
+
+## 🖥️ Dashboard Preview
+
+### Dashboard Overview
+
+![Dashboard Overview](screenshots/dashboard-overview.png.png)
+
+### Feature Correlation and Model Comparison
+
+![Model Comparison](screenshots/model_comparison.png.png)
+
+### Model Accuracy Comparison
+
+![Model Accuracy](screenshots/model_accuracy.png.png)
+
+### Prediction Input
+
+![Prediction Input](screenshots/prediction-input.png.png)
+
+### Prediction Result
+
+![Prediction Result](screenshots/prediction-result.png.png)
 
 ## ▶️ How to Run
 1. Clone the Repository
@@ -138,7 +160,7 @@ Breast-Cancer-Prediction/
 ├── README.md
 └── requirements.txt
 
-📌 Key Highlights
+## 📌 Key Highlights
 Implemented complete Machine Learning workflow from data exploration to deployment
 Compared five different classification algorithms
 Achieved 98.25% test accuracy using Logistic Regression
@@ -146,7 +168,7 @@ Evaluated the model using Precision, Recall, F1 Score, and ROC-AUC
 Developed an interactive Streamlit dashboard for predictions and visualization
 Saved the trained model and scaler using Joblib
 
-⚠️ Disclaimer
+## ⚠️ Disclaimer
 
 This project is developed for educational and demonstration purposes
 only. It is not a clinical diagnostic system and should not be used
