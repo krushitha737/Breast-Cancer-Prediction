@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import matplotlib.pyplot as plt
+
+from pathlib import Path
 
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
@@ -11,9 +14,10 @@ from sklearn.metrics import confusion_matrix, roc_curve, auc
 # ==========================================
 # LOAD MODEL AND SCALER
 # ==========================================
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-model = joblib.load("../models/breast_cancer_model.pkl")
-scaler = joblib.load("../models/scaler.pkl")
+model = joblib.load(BASE_DIR / "models" / "breast_cancer_model.pkl")
+scaler = joblib.load(BASE_DIR / "models" / "scaler.pkl")
 
 data = load_breast_cancer(as_frame=True)
 df = data.frame
@@ -260,31 +264,59 @@ st.dataframe(
 # ROC CURVE
 # ==========================================
 
+
 st.header("📈 ROC Curve")
 
+# Get prediction probabilities
 y_probability = model.predict_proba(X_test_scaled)[:, 1]
 
-fpr, tpr, thresholds = roc_curve(
-    y_test,
-    y_probability
-)
+# Calculate ROC values
+fpr, tpr, thresholds = roc_curve(y_test, y_probability)
 
+# Calculate AUC
 roc_auc = auc(fpr, tpr)
 
-roc_df = pd.DataFrame({
-    "False Positive Rate": fpr,
-    "True Positive Rate": tpr
-})
+# Create ROC plot
+fig, ax = plt.subplots(figsize=(8, 6))
 
-st.line_chart(
-    roc_df.set_index("False Positive Rate")
+# ROC curve
+ax.plot(
+    fpr,
+    tpr,
+    linewidth=2,
+    label=f"Logistic Regression (AUC = {roc_auc:.4f})"
 )
 
+# Random classifier line
+ax.plot(
+    [0, 1],
+    [0, 1],
+    linestyle="--",
+    linewidth=1.5,
+    label="Random Classifier (AUC = 0.50)"
+)
+
+# Labels
+ax.set_xlabel("False Positive Rate")
+ax.set_ylabel("True Positive Rate")
+ax.set_title("Receiver Operating Characteristic (ROC) Curve")
+
+# Axis limits
+ax.set_xlim([0.0, 1.0])
+ax.set_ylim([0.0, 1.05])
+
+# Grid and legend
+ax.grid(True)
+ax.legend(loc="lower right")
+
+# Display
+st.pyplot(fig)
+
+# Display AUC
 st.metric(
     "ROC-AUC Score",
     f"{roc_auc:.4f}"
 )
-
 
 # ==========================================
 # PREDICTION SECTION
