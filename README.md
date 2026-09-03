@@ -140,9 +140,9 @@ pip install -r requirements.txt
 streamlit run src/app.py
 
 The application will open in your browser at:
-
 http://localhost:8501
-📁 Project Structure
+
+## 📁 Project Structure
 Breast-Cancer-Prediction/
 │
 ├── data/
